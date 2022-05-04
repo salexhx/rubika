@@ -20,7 +20,7 @@ rubika.client Bot = new rubika.client("Your Auth");
 Now you can use 'rubika.client' methods.
 For example
 ```dart
-Bot.sendMessage("Hello Dart", "Target");
+await Bot.sendMessage("Hello Dart", "Target");
 ```
 
 ## Additional information
