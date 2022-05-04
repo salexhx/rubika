@@ -1,6 +1,6 @@
 name: rubika
 description: A library to create Rubika bots
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/salexhx/rubika
 
 environment:
