@@ -1,6 +1,6 @@
 ## Features
 
-This library developed for making rubika bots in dart language
+This library developed to making rubika bots in dart language
 you can get messages messages updates and send messages and...
 
 ## Getting started
