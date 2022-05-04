@@ -98,14 +98,20 @@ class client {
     };
     return json.encode(data).toString();
   }
-  Future<String> sendMessage(String text, String target) async {
+  Future<String> sendMessage(String text, String target, [String reply=""]) async {
     String method = "sendMessage";
     Map input = {
       "object_guid": target,
       "rnd":_random.nextInt(999999),
       "text": text
     };
-    return post(_makeData(method, input));
+    if (reply == ""){
+      return post(_makeData(method, input));
+    }
+    else {
+      input["reply_to_message_id"] = reply;
+      return post(_makeData(method, input));
+    }
   }
   Future<String> getChats([int startId=0]) async {
     String method = "getChats";
@@ -122,4 +128,71 @@ class client {
     };
     return post(_makeData(method, input));
   }
+  Future<String> getInfoByUsername(String username) async {
+    String method = "getObjectByUsername";
+    Map input = {
+      "username" : username
+    };
+    return post(_makeData(method, input));
+  }
+  Future<String> getUserInfo(String target) async {
+    String method = "getUserInfo";
+    Map input = {
+      "user_guid" : target
+    };
+    return post(_makeData(method, input));
+  }
+  Future<String> editMessage(String msgId, String target, String text) async {
+    String method = "editMessage";
+    Map input = {
+      "message_id" : msgId,
+      "object_guid" : target,
+      "text" : text
+    };
+    return post(_makeData(method, input));
+  }
+  Future<String> deleteMessage(target, msgIds) async {
+    String method = "deleteMessages";
+    Map input = {
+      "object_guid" : target,
+      "message_ids" : msgIds,
+      "type" : "Global"
+    };
+    return post(_makeData(method, input));
+  }
+  Future<String> banGroupMember(String group_guid,String user_id) async {
+    String method = "banGroupMember";
+    Map input = {
+      "group_guid" : group_guid,
+      "member_guid" : user_id,
+      "action" : "Set"
+    };
+    return post(_makeData(method, input));
+  }
+  Future<String> unbanGroupMember(String group_guid, String user_id) async {
+    String method = "banGroupMember";
+    Map input = {
+      "group_guid" : group_guid,
+      "member_guid" : user_id,
+      "action" : "Unset"
+    };
+    return post(_makeData(method, input));
+  }
+  Future<String> addGroupMembers(String group_guid, List user_ids) {
+    String method = "addGroupMembers";
+    Map input = {
+      "group_guid" : group_guid,
+      "member_guids" : user_ids
+    };
+    return post(_makeData(method, input));
+  }
+  Future<String> addChannelMembers(String channel_guid, List user_ids) {
+    String method = "addChannelMembers";
+    Map input = {
+      "channel_guid" : channel_guid,
+      "member_guids" : user_ids
+    };
+    return post(_makeData(method, input));
+  }
+
 }
